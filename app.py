@@ -2,6 +2,9 @@ import streamlit as st
 import investpy
 import pandas as pd
 from datetime import datetime, timedelta
+import os
+import openpyxl
+
 
 def fetch_economic_calendar(countries, importances, from_date, to_date):
     if from_date == to_date:
@@ -34,8 +37,13 @@ def main():
 
     if st.button('Download as Excel'):
         df = pd.DataFrame(data)
-        df.to_excel("economic_calendar_data.xlsx", index=False)
-        st.success("Data downloaded successfully!")
+        
+        # File uploader to choose where to save the file
+        uploaded_file = st.file_uploader("Choose where to save the file", type="xlsx", accept_multiple_files=False)
+        if uploaded_file is not None:
+            file_path = os.path.abspath(os.path.expanduser(uploaded_file.name))
+            df.to_excel(file_path, index=False)
+            st.success(f"Data downloaded successfully! Check {uploaded_file.name}.")
 
 if __name__ == "__main__":
     main()
