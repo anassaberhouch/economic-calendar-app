@@ -3,7 +3,8 @@ import investpy
 import pandas as pd
 from datetime import datetime, timedelta
 import os
-import openpyxl
+import tempfile
+import base64
 
 
 def fetch_economic_calendar(countries, importances, from_date, to_date):
@@ -38,12 +39,16 @@ def main():
     if st.button('Download as Excel'):
         df = pd.DataFrame(data)
         
-        # File uploader to choose where to save the file
-        uploaded_file = st.file_uploader("Choose where to save the file", type="xlsx", accept_multiple_files=False)
-        if uploaded_file is not None:
-            file_path = os.path.abspath(os.path.expanduser(uploaded_file.name))
-            df.to_excel(file_path, index=False)
-            st.success(f"Data downloaded successfully! Check {uploaded_file.name}.")
+        # Save DataFrame to a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmpfile:
+            df.to_excel(tmpfile.name, index=False)
+        
+        # Provide download link to the generated file
+        with open(tmpfile.name, 'rb') as f:
+            data = f.read()
+            b64_data = base64.b64encode(data).decode('utf-8')
+            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64_data}" download="economic_calendar_data.xlsx">Download Excel file</a>'
+            st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
