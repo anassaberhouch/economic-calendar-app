@@ -18,7 +18,7 @@ def main():
     st.title('Economic Calendar')
     
     st.sidebar.title('Settings')
-    countries = st.sidebar.multiselect('Select countries', ['euro zone', 'united states', 'morocco'])
+    countries = st.sidebar.multiselect('Select countries', ['euro zone','united kingdom' ,'united states', 'morocco'])
     importances = st.sidebar.multiselect('Select importance', ['Low', 'Medium', 'High'])
     from_date = st.sidebar.date_input("From Date", value=datetime.today())
     to_date = st.sidebar.date_input("To Date", value=datetime.today() + timedelta(days=1))  
