@@ -9,9 +9,8 @@ import base64
 
 def fetch_economic_calendar(countries, importances, from_date, to_date):
     if from_date == to_date:
-        # Set to_date to one day ahead if it's the same as from_date
         to_date += timedelta(days=1)
-    data = investpy.economic_calendar(countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
+    data = investpy.economic_calendar(time_zone='GMT +1:00',countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
     return data
 
 def main():
@@ -50,5 +49,5 @@ def main():
             href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64_data}" download="economic_calendar_data.xlsx">Download Excel file</a>'
             st.markdown(href, unsafe_allow_html=True)
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     main()
