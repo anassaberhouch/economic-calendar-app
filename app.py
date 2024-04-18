@@ -7,7 +7,7 @@ import tempfile
 import base64
 from PIL import Image
 
-# Fonction pour récupérer le calendrier économique
+
 def fetch_economic_calendar(time_zone,countries, importances, from_date, to_date):
     if from_date == to_date:
         to_date += timedelta(days=1)
