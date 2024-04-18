@@ -14,12 +14,12 @@ def fetch_economic_calendar(time_zone,countries, importances, from_date, to_date
     data = investpy.economic_calendar(time_zone,countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
     return data
 
-# Fonction principale de l'interface Streamlit
+
 def main():
-    # Ajout du logo avant le titre "Economic Calendar"
+    
     logo_path = "CIB_LOGO-removebg-preview.png"
     logo_image = Image.open(logo_path)
-    st.image(logo_image, width=100)  # Affichage du logo
+    st.image(logo_image, width=100)  
     
     st.title('Economic Calendar')
     
