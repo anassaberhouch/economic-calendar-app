@@ -32,7 +32,7 @@ def main():
     if to_date < from_date:
         st.error("Error: 'To Date' should be greater than or equal to 'From Date'. Please adjust the date range.")
         return
-    time_zone='GMT +1:00'
+    time_zone='GMT'
     importances_lower = [importance.lower() for importance in importances]
     
     data = fetch_economic_calendar(time_zone,countries, importances_lower, from_date, to_date)
