@@ -5,15 +5,22 @@ from datetime import datetime, timedelta
 import os
 import tempfile
 import base64
+from PIL import Image
 
-
+# Fonction pour récupérer le calendrier économique
 def fetch_economic_calendar(countries, importances, from_date, to_date):
     if from_date == to_date:
         to_date += timedelta(days=1)
     data = investpy.economic_calendar(time_zone='GMT +1:00',countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
     return data
 
+# Fonction principale de l'interface Streamlit
 def main():
+    # Ajout du logo avant le titre "Economic Calendar"
+    logo_path = "CIB_LOGO-removebg-preview.png"
+    logo_image = Image.open(logo_path)
+    st.image(logo_image, width=100)  # Affichage du logo
+    
     st.title('Economic Calendar')
     
     st.sidebar.title('Settings')
