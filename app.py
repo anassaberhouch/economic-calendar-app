@@ -8,10 +8,10 @@ import base64
 from PIL import Image
 
 # Fonction pour récupérer le calendrier économique
-def fetch_economic_calendar(countries, importances, from_date, to_date):
+def fetch_economic_calendar(time_zone,countries, importances, from_date, to_date):
     if from_date == to_date:
         to_date += timedelta(days=1)
-    data = investpy.economic_calendar(time_zone='GMT',countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
+    data = investpy.economic_calendar(time_zone,countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
     return data
 
 # Fonction principale de l'interface Streamlit
@@ -32,10 +32,10 @@ def main():
     if to_date < from_date:
         st.error("Error: 'To Date' should be greater than or equal to 'From Date'. Please adjust the date range.")
         return
-    
+    time_zone='GMT +1:00'
     importances_lower = [importance.lower() for importance in importances]
     
-    data = fetch_economic_calendar(countries, importances_lower, from_date, to_date)
+    data = fetch_economic_calendar(time_zone,countries, importances_lower, from_date, to_date)
     
     if 'id' in data.columns:
         data.drop(columns=['id'], inplace=True)
