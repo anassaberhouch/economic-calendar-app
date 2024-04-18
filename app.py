@@ -11,7 +11,7 @@ from PIL import Image
 def fetch_economic_calendar(countries, importances, from_date, to_date):
     if from_date == to_date:
         to_date += timedelta(days=1)
-    data = investpy.economic_calendar(time_zone='GMT +1:00',countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
+    data = investpy.economic_calendar(time_zone='GMT',countries=countries, importances=importances, from_date=from_date.strftime('%d/%m/%Y'), to_date=to_date.strftime('%d/%m/%Y'))
     return data
 
 # Fonction principale de l'interface Streamlit
