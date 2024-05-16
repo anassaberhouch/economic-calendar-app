@@ -45,11 +45,10 @@ def main():
     if st.button('Download as Excel'):
         df = pd.DataFrame(data)
         
-        # Save DataFrame to a temporary file
+        
         with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmpfile:
             df.to_excel(tmpfile.name, index=False)
         
-        # Provide download link to the generated file
         with open(tmpfile.name, 'rb') as f:
             data = f.read()
             b64_data = base64.b64encode(data).decode('utf-8')
